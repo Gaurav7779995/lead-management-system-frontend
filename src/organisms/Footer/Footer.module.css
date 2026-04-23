@@ -1,0 +1,82 @@
+.footer {
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 40px 20px 20px;
+  margin-top: 50px;
+}
+
+/* Grid Layout */
+.footerContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Sections */
+.footerLeftSection,
+.footerQuickSection,
+.footerFeatureSection,
+.footerSection {
+  font-size: 14px;
+}
+
+/* Headings */
+.footerLeftSection h2,
+.footerQuickSection h3,
+.footerFeatureSection h3,
+.footerSection h3 {
+  margin-bottom: 10px;
+}
+
+/* Paragraph */
+.footerLeftSection p,
+.footerSection p {
+  line-height: 1.6;
+}
+
+/* Lists */
+.footerQuickSection ul,
+.footerFeatureSection ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footerQuickSection ul li,
+.footerFeatureSection ul li {
+  margin: 8px 0;
+}
+
+/* Links */
+.footerQuickSection ul li a {
+  text-decoration: none;
+  color: #cbd5f5;
+  transition: 0.3s;
+}
+
+.footerQuickSection ul li a:hover {
+  color: #38bdf8;
+}
+
+/* Bottom Section */
+.footerBottom {
+  grid-column: 1 / -1;
+  text-align: center;
+  border-top: 1px solid #334155;
+  margin-top: 20px;
+  padding-top: 15px;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footerContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .footerContainer {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
