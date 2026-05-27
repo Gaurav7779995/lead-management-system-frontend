@@ -9,7 +9,7 @@ import Select from "../../atoms/Select";
 import logo from "../assets/images/1.jpeg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-import { loginUser } from "../../api/authApi"; // ✅ API
+import { loginUser } from "../../api/auth.api"; // ✅ API
 
 const LoginPage = () => {
   const navigate = useNavigate();

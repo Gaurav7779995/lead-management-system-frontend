@@ -1,4 +1,4 @@
-import LoginForm from "../organisms/LoginForm.tsx";
+import LoginForm from "../organisms/LoginForm";
 import "../assets/styles/login.css";
 
 const LoginPage = () => {

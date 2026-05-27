@@ -1,3 +1,5 @@
+// This is option because all work done by AddLeadModal.tsx file
+
 import { useState } from "react";
 import { createLead } from "../../services/leadService";
 

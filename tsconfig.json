@@ -3,6 +3,7 @@
     /* 🔹 Language & Environment */
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["node"],
 
     /* 🔹 Modules */
     "module": "ESNext",

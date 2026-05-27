@@ -10,7 +10,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
+  background:
+    radial-gradient(circle at 85% 35%, rgba(37, 99, 235, 0.45), transparent 34%),
+    linear-gradient(135deg, #0a1734 0%, #14306b 48%, #2563eb 100%);
 }
 
 /* LOGO */
@@ -69,6 +71,51 @@ body {
   line-height: 1.5;
 }
 
+.login-left {
+  padding: 34px 54px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background:
+    linear-gradient(135deg, rgba(30, 47, 94, 0.82), rgba(50, 77, 151, 0.64)),
+    rgba(15, 23, 42, 0.34);
+}
+
+.login-left .logo {
+  width: 98px;
+  height: 98px;
+  object-fit: cover;
+  object-position: center;
+  margin: 0 0 28px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(3, 7, 18, 0.18);
+}
+
+.login-left h1 {
+  margin: 0 0 24px;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+.login-left p {
+  max-width: 310px;
+  margin: 0 0 28px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.35;
+  opacity: 1;
+}
+
+.login-left .quote {
+  margin-top: 0;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.45;
+}
+
 /* RIGHT SIDE */
 .login-right {
   flex: 1;
@@ -84,6 +131,8 @@ body {
   text-align: center;
   margin-bottom: 20px;
   font-size: 30px;
+  font-weight: 500;
+  color: #1e3a8a;
 }
 
 /* INPUT GROUP */
@@ -103,6 +152,7 @@ select.input {
   outline: none;
   font-size: 14px;
   background: whitesmoke;
+  color: #000;
   box-sizing: border-box;
 }
 
@@ -129,7 +179,7 @@ select.input {
   transform: translateY(-50%);
   background: white;
   padding: 0 5px;
-  color: gray;
+  color: #333;
   font-size: 14px;
   transition: 0.3s ease;
   pointer-events: none;
@@ -193,7 +243,7 @@ select:-webkit-autofill {
   color: white;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 400;
   transition: all 0.3s ease;
 }
 
@@ -203,6 +253,45 @@ select:-webkit-autofill {
 }
 
 /* FORGOT PASSWORD */
+.auth-form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -6px 0 16px;
+}
+
+.remember-me {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #475569;
+  cursor: pointer;
+  user-select: none;
+}
+
+.remember-me input {
+  width: 15px;
+  height: 15px;
+  accent-color: #2563eb;
+}
+
+.forgot-password-link {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
 .forgot-password {
   text-align: right;
   margin-top: 10px;
@@ -249,8 +338,8 @@ select:-webkit-autofill {
 
   .login-left {
     padding: 30px;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .login-right {

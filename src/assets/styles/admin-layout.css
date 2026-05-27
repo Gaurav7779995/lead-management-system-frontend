@@ -1,0 +1,74 @@
+/* ================= GLOBAL RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* ================= ROOT LAYOUT ================= */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg, #f0f2f8);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.admin-layout.manager-dashboard-shell {
+  background:
+    linear-gradient(180deg, rgba(23, 20, 91, 0.04), rgba(61, 176, 166, 0.06)),
+    var(--bg, #f0f2f8);
+}
+
+/* ================= MAIN CONTENT ================= */
+/*
+  KEY FIX:
+  margin-left: 240px  → sidebar width જેટલો gap રાખે
+  width: calc(100% - 240px) → content sidebar ની નીચે જાય નહીં
+  overflow-x: hidden  → horizontal scroll ન આવે
+*/
+.admin-content {
+  margin-left: var(--dashboard-sidebar-width, 220px);
+  width: calc(100% - var(--dashboard-sidebar-width, 220px));
+  min-height: 100vh;
+  padding: 0;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.admin-page-content {
+  flex: 1;
+  padding: 24px;
+}
+
+.admin-layout:has(.admin-leads-page) {
+  background: #f0f2f8;
+}
+
+.admin-content:has(.admin-leads-page),
+.admin-page-content:has(.admin-leads-page) {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(53, 95, 145, 0.08), transparent 28rem),
+    linear-gradient(180deg, #f0f2f8 0%, #f6f8fc 42%, #eef7f7 100%);
+}
+
+.admin-page-content:has(.admin-leads-page) {
+  min-height: calc(100vh - 68px);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .admin-content {
+    margin-left: var(--dashboard-sidebar-width, 72px);
+    width: calc(100% - var(--dashboard-sidebar-width, 72px));
+  }
+
+  .admin-page-content {
+    padding: 10px;
+  }
+}

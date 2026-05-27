@@ -1,0 +1,304 @@
+/* ================= PAGE HEADER ================= */
+.manager-page-header {
+  margin: 0 auto 18px;
+  max-width: 1400px;
+  padding: 0;
+}
+
+.manager-header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(61, 176, 166, 0.2), transparent 34%),
+    linear-gradient(145deg, rgba(23, 20, 91, 0.99), rgba(43, 53, 120, 0.94) 54%, rgba(61, 176, 166, 0.16)),
+    #17145b;
+  border: 1px solid rgba(61, 176, 166, 0.28);
+  border-top-color: rgba(94, 234, 212, 0.72);
+  border-radius: 14px;
+  padding: 18px 24px;
+  box-shadow:
+    0 18px 44px rgba(7, 11, 43, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  min-height: 110px;
+}
+
+.manager-header-title-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.manager-header-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.manager-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.manager-main-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.manager-subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: rgba(226, 246, 250, 0.76);
+  margin: 0;
+}
+
+.manager-header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-refresh {
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-refresh:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.btn-add-manager {
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-add-manager:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  transform: scale(1.03);
+}
+
+/* ================= GRID ================= */
+.manager-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ================= CARD ================= */
+.manager-card {
+  background: white;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+
+  cursor: pointer; /* ✅ added */
+}
+
+/* ensure full card clickable */
+.manager-card * {
+  pointer-events: none;
+}
+
+.manager-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.11);
+}
+
+/* ================= CARD HEADER ================= */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.card-header-info h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 3px 0;
+}
+
+.card-header-info p {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ================= AVATAR ================= */
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+/* ================= STATS ROW ================= */
+.manager-stats {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 16px;
+  padding: 12px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.manager-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.manager-stat-item svg {
+  font-size: 14px;
+  color: #2563eb;
+}
+
+/* ================= ASSIGN BUTTON ================= */
+.assign-toggle {
+  margin-top: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+
+  pointer-events: auto; /* ✅ allow button click */
+  position: relative;
+  z-index: 2;
+}
+
+.assign-toggle:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* ================= STATUS BADGE ================= */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.status-badge.active {
+  background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.status-badge.inactive {
+  background: linear-gradient(135deg, #F44336 0%, #FF5722 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+.status-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .manager-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .manager-header-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .manager-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .manager-header-actions button {
+    flex: 1 1 140px;
+    justify-content: center;
+  }
+
+  .manager-main-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .manager-page-header {
+    margin-bottom: 14px;
+  }
+
+  .manager-header-main {
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .manager-header-title-section {
+    align-items: flex-start;
+  }
+
+  .manager-header-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 19px;
+  }
+}

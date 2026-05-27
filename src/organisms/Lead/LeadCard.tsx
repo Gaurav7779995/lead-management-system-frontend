@@ -1,23 +1,77 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { Lead } from "../../services/leadService";
 
-const LeadCard = ({ lead }: any) => {
+type Props = {
+  lead: Lead;
+  refresh?: () => void;
+};
+
+const LeadCard = ({ lead }: Props) => {
+  const navigate = useNavigate();
+  const leadId = lead._id || lead.id;
+  const statusClass = lead.status?.replace(/_/g, "-") || "new";
+  const leadInitial = lead.name?.trim()?.charAt(0)?.toUpperCase() || "L";
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
+
+  const getStatusColor = (status?: string) => {
+    switch (status?.toLowerCase()) {
+      case "new":
+        return "status-blue";
+      case "contacted":
+      case "proposal-sent":
+      case "negotiation":
+        return "status-amber";
+      case "interested":
+      case "qualified":
+        return "status-cyan";
+      case "won":
+        return "status-green";
+      case "lost":
+      case "not-interested":
+        return "status-red";
+      default:
+        return "status-gray";
+    }
+  };
+
   return (
-    <motion.div 
+    <motion.div
       className="lead-card"
-      whileHover={{ scale: 1.05 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.2 }}
+      onClick={() => leadId && navigate(`/admin/leads/${leadId}`)}
+      style={{ cursor: leadId ? "pointer" : "default" }}
     >
-      <h3>{lead.name}</h3>
-      <p>{lead.email || lead.phone}</p>
+      {/* Header: Avatar + Status */}
+      <div className="lead-card-header">
+        <div className="lead-avatar">{leadInitial}</div>
+        <div className="lead-header-info">
+          <span className={`status-badge ${getStatusColor(lead.status)}`}>
+            <span className="status-dot"></span>
+            {lead.status?.replace(/_/g, " ") || "New"}
+          </span>
+          <span className="lead-date">{formatDate(lead.createdAt)}</span>
+        </div>
+      </div>
 
-      <span className={`status ${lead.status}`}>
-        {lead.status}
-      </span>
+      {/* Main Content */}
+      <div className="lead-card-body">
+        <h3 className="lead-name">{lead.name}</h3>
+        <p className="lead-title">{lead.email || lead.phone || "No contact info"}</p>
+      </div>
 
-      <div className="meta">
-        <span>{lead.source}</span>
-        <span>{lead.isClosed ? "Closed" : "Open"}</span>
+      {/* Footer: Source + Open/Closed */}
+      <div className="lead-card-footer">
+        <span className="source-pill">{lead.source || "Unknown"}</span>
+        <span className={`state-indicator ${lead.isClosed ? "closed" : "open"}`}>
+          {lead.isClosed ? "Closed" : "Active"}
+        </span>
       </div>
     </motion.div>
   );

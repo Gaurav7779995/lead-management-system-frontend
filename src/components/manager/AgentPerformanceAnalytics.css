@@ -1,0 +1,218 @@
+/* ============================================
+   AGENT PERFORMANCE ANALYTICS STYLES
+   ============================================ */
+
+.agent-performance-analytics {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.dark-mode .agent-performance-analytics {
+  background: #1e293b;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.analytics-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.analytics-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.dark-mode .analytics-header h2 {
+  color: #f1f5f9;
+}
+
+.chart-tabs {
+  display: flex;
+  gap: 8px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.dark-mode .chart-tabs {
+  background: #334155;
+}
+
+.chart-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.dark-mode .chart-tab {
+  color: #94a3b8;
+}
+
+.chart-tab:hover {
+  background: rgba(255, 255, 255, 0.5);
+  color: #1e293b;
+}
+
+.dark-mode .chart-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+
+.chart-tab.active {
+  background: white;
+  color: #667eea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .chart-tab.active {
+  background: #1e293b;
+  color: #667eea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tab-icon {
+  font-size: 16px;
+}
+
+.tab-label {
+  font-size: 14px;
+}
+
+.chart-container {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.dark-mode .chart-container {
+  background: #0f172a;
+}
+
+.performance-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.dark-mode .performance-summary {
+  border-top-color: #334155;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dark-mode .summary-label {
+  color: #94a3b8;
+}
+
+.summary-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.dark-mode .summary-value {
+  color: #f1f5f9;
+}
+
+/* Loading State */
+.analytics-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  gap: 16px;
+}
+
+.analytics-loading .spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.analytics-loading p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .agent-performance-analytics {
+    padding: 20px;
+  }
+
+  .analytics-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chart-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .chart-tab {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .performance-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .summary-value {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-tabs {
+    flex-direction: column;
+  }
+
+  .performance-summary {
+    grid-template-columns: 1fr;
+  }
+}
