@@ -31,13 +31,21 @@ const LoginForm = () => {
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
 
+    const email = form.email.trim();
+    const password = form.password.trim();
+
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+
     try {
       setError("");
       setLoading(true);
 
       const data = await loginUser({
-        email: form.email.trim(),
-        password: form.password.trim(),
+        email,
+        password,
       });
 
       if (!data?.accessToken || !data?.user?.role) {
@@ -46,7 +54,7 @@ const LoginForm = () => {
 
       login(data);
       if (rememberMe) {
-        localStorage.setItem("rememberedEmail", form.email.trim());
+        localStorage.setItem("rememberedEmail", email);
       } else {
         localStorage.removeItem("rememberedEmail");
       }
@@ -65,9 +73,26 @@ const LoginForm = () => {
         navigate("/login", { replace: true });
       }
     } catch (err: any) {
+      const status = err?.status || err?.response?.status;
+      const serverMessage =
+        err?.response?.data?.message ||
+        err?.response?.data?.error ||
+        err?.message;
+
+      let friendlyMessage = serverMessage;
+
+      if (status === 400 || status === 401) {
+        friendlyMessage = "Incorrect email or password. Please try again.";
+      } else if (status === 404) {
+        friendlyMessage = "Login service was not found. Please check the API URL and try again.";
+      } else if (status === 0 || err?.code === "ERR_NETWORK") {
+        friendlyMessage = "Cannot reach the server. Please make sure the backend is running.";
+      } else if (status >= 500) {
+        friendlyMessage = "Server error while logging in. Please try again in a moment.";
+      }
+
       setError(
-        err?.message ||
-          err?.response?.data?.message ||
+        friendlyMessage ||
           "Login failed. Please check your email and password."
       );
     } finally {
@@ -92,7 +117,11 @@ const LoginForm = () => {
       <div className="login-right">
         <h2>Login</h2>
 
-        {error && <p className="error-text">{error}</p>}
+        {error && (
+          <p className="error-text" role="alert" aria-live="polite">
+            {error}
+          </p>
+        )}
 
         <form autoComplete="off" onSubmit={handleLogin}>
           <InputField

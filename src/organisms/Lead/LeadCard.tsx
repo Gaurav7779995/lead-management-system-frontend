@@ -7,11 +7,29 @@ type Props = {
   refresh?: () => void;
 };
 
+const getLeadId = (lead: Lead) => {
+  const rawId = lead._id || lead.id;
+
+  if (typeof rawId === "string") return rawId;
+  if (rawId && typeof rawId === "object" && "$oid" in rawId) {
+    return String((rawId as { $oid?: string }).$oid || "");
+  }
+
+  return "";
+};
+
 const LeadCard = ({ lead }: Props) => {
   const navigate = useNavigate();
-  const leadId = lead._id || lead.id;
+  const leadId = getLeadId(lead);
   const statusClass = lead.status?.replace(/_/g, "-") || "new";
   const leadInitial = lead.name?.trim()?.charAt(0)?.toUpperCase() || "L";
+  const canOpenDetails = /^[a-f\d]{24}$/i.test(leadId);
+
+  const openDetails = () => {
+    if (canOpenDetails) {
+      navigate(`/admin/leads/${leadId}`, { state: { lead } });
+    }
+  };
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return "";
@@ -45,8 +63,16 @@ const LeadCard = ({ lead }: Props) => {
       className="lead-card"
       whileHover={{ y: -2 }}
       transition={{ duration: 0.2 }}
-      onClick={() => leadId && navigate(`/admin/leads/${leadId}`)}
-      style={{ cursor: leadId ? "pointer" : "default" }}
+      onClick={openDetails}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openDetails();
+        }
+      }}
+      role="button"
+      tabIndex={canOpenDetails ? 0 : -1}
+      style={{ cursor: canOpenDetails ? "pointer" : "default" }}
     >
       {/* Header: Avatar + Status */}
       <div className="lead-card-header">

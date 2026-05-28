@@ -1,5 +1,5 @@
 ﻿import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import Sidebar from "../DashboardSidebar/Sidebar";
 import Navbar from "../DashboardNavbar/Navbar";
 
@@ -15,9 +15,42 @@ import "../../assets/styles/Leads.css";
 import "../../assets/styles/Dashboard.css";
 import { isBeforeToday, todayDateTimeInputValue } from "../../utils/dateValidation";
 
+const getRefId = (value: any) => {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  if (typeof value === "object") return value._id || value.id || value.$oid || "";
+  return "";
+};
+
+const getNotesHtml = (lead: any) => {
+  if (Array.isArray(lead?.notes) && lead.notes.length > 0) {
+    return lead.notes
+      .map((note: any) => note?.text || note)
+      .filter(Boolean)
+      .join("<br/><br/>");
+  }
+
+  return lead?.note || lead?.description || lead?.followUpNotes || "";
+};
+
+const mergeLeadDetails = (primary: any = {}, fallback: any = {}) => ({
+  ...fallback,
+  ...primary,
+  name: primary?.name || fallback?.name || "",
+  email: primary?.email || fallback?.email || "",
+  phone: primary?.phone || fallback?.phone || "",
+  status: primary?.status || fallback?.status || "new",
+  assignedManager: primary?.assignedManager || fallback?.assignedManager || "",
+  assignedAgent: primary?.assignedAgent || fallback?.assignedAgent || "",
+  notes: primary?.notes?.length ? primary.notes : fallback?.notes || [],
+  note: getNotesHtml(primary) || getNotesHtml(fallback),
+});
+
 const LeadDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const fallbackLead = (location.state as { lead?: any } | null)?.lead;
 
   const durationOptions = (count: number) =>
     Array.from({ length: count }, (_, index) => (
@@ -70,8 +103,8 @@ const LeadDetailsPage = () => {
       if (!id) return;
 
       try {
-        const data = await getLeadById(id);
-        if (!data) {
+        const data = mergeLeadDetails(await getLeadById(id), fallbackLead);
+        if (!data?._id && !data?.id && !fallbackLead) {
           setError("Lead details not found");
           return;
         }
@@ -82,21 +115,36 @@ const LeadDetailsPage = () => {
           email: data.email || "",
           phone: data.phone || "",
           status: data.status || "new",
-          assignedManager: data.assignedManager?._id || "",
-          assignedAgent: data.assignedAgent?._id || "",
+          assignedManager: getRefId(data.assignedManager),
+          assignedAgent: getRefId(data.assignedAgent),
 
           // âœ… Notes convert to editor format
-          note:
-            data.notes?.map((n: any) => n.text).join("<br/><br/>") || "",
+          note: data.note || getNotesHtml(data),
         });
       } catch (err) {
+        if (fallbackLead) {
+          const data = mergeLeadDetails(fallbackLead);
+          setLeadData(data);
+          setForm({
+            name: data.name || "",
+            email: data.email || "",
+            phone: data.phone || "",
+            status: data.status || "new",
+            assignedManager: getRefId(data.assignedManager),
+            assignedAgent: getRefId(data.assignedAgent),
+            note: data.note || getNotesHtml(data),
+          });
+          setError("");
+          return;
+        }
+
         console.error("Error fetching lead:", err);
         setError("Failed to load lead");
       }
     };
 
     fetchLead();
-  }, [id]);
+  }, [id, fallbackLead]);
 
   // ================= FETCH MANAGERS =================
   useEffect(() => {

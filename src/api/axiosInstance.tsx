@@ -4,10 +4,14 @@ import axios, {
   AxiosHeaders,
 } from "axios";
 
-const BASE_URL =
+const configuredBaseUrl =
   process.env.REACT_APP_API_URL ||
   process.env.REACT_APP_API_BASE_URL ||
   "http://localhost:5000/api";
+
+const BASE_URL = configuredBaseUrl.replace(/\/$/, "").endsWith("/api")
+  ? configuredBaseUrl.replace(/\/$/, "")
+  : `${configuredBaseUrl.replace(/\/$/, "")}/api`;
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

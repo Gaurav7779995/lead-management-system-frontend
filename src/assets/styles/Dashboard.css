@@ -6174,6 +6174,7 @@ body {
   height: auto;
   border-radius: 26px 0 0 12px;
   background: linear-gradient(180deg, var(--manager-navy), var(--manager-blue), var(--manager-teal));
+  pointer-events: none;
 }
 
 .manager-dashboard-theme .lead-card::after {

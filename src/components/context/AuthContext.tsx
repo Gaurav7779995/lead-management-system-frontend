@@ -17,10 +17,14 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-const BASE_URL =
+const configuredBaseUrl =
   process.env.REACT_APP_API_URL ||
   process.env.REACT_APP_API_BASE_URL ||
   "http://localhost:5000/api";
+
+const BASE_URL = configuredBaseUrl.replace(/\/$/, "").endsWith("/api")
+  ? configuredBaseUrl.replace(/\/$/, "")
+  : `${configuredBaseUrl.replace(/\/$/, "")}/api`;
 
 const parseJwtPayload = (token: string) => {
   try {

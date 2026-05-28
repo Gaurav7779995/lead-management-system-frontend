@@ -8,7 +8,12 @@ export const loginUser = async (data: {
      const res = await API.post("/auth/login", data);
   return res.data;
   } catch (error: any) {
-    throw error.response?.data || { message: "Login failed" };
+    throw {
+      ...(error.response?.data || {}),
+      status: error.response?.status,
+      code: error.code,
+      message: error.response?.data?.message || error.message || "Login failed",
+    };
   }
 };
 
